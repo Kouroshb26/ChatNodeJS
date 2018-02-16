@@ -1,0 +1,47 @@
+
+body{
+ margin: 0;
+ padding: 0;   
+}
+
+
+
+
+form { 
+    background: #000;  
+    position: fixed; 
+    bottom: 0;
+    padding: 10px 0;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    justify-content:space-around;
+}
+
+form input { 
+    border: 0; 
+    padding: 10px; 
+    flex-grow: 10;
+}
+
+form button { 
+    background: rgb(130, 224, 255); 
+    border: none; 
+    padding: 10px;
+    flex: 1;   
+}
+
+#messages { 
+    list-style-type: none; 
+    margin:0;
+    padding: 0;
+    margin-bottom: 50px;
+    }
+#messages li { 
+    padding: 5px 10px;
+    margin:0;
+}
+
+#messages li:nth-child(odd) {
+    background: #eee;
+}
