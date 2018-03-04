@@ -1,19 +1,25 @@
+function Client(name,color){
+    this.name = name;
+    this.color = color;
+}
 $(function () {
     var socket = io();
-    let name = "Kourosh"
-    let color = "rgb(255,0,0)"
+    let client;
+
+    let clients = [];
 
     $('form').submit(function(){
         let message = $('#message').val().trim();
 
         if (message.substr(0,10) === "/nickcolor"){
-            color = "#"+ message.split(" ")[1];
-        }else if (message.substr(0,5) === "/nick"){
-            socket.emit("name change", message.split(" ")[1]);
-        }else if(message != ""){
 
-            socket.emit('chat message',{ name : name,
-                                        color : color,
+            socket.emit("update client color",{name: client.name, color: "#"+ message.split(" ")[1] });
+        
+        }else if (message.substr(0,5) === "/nick"){
+            socket.emit("update client name",[client,{name: message.split(" ")[1], color : client.color }]);
+        
+        }else if(message != ""){
+            socket.emit('chat message',{ name : client.name,
                                         message : message});
         }
         $('#message').val('');
@@ -33,4 +39,19 @@ $(function () {
         };
     })
 
+
+    socket.on("update client",function(newClient){
+        client = newClient;
+        console.log(client);
+    });
+
+    socket.on("update clients", function(newClients){
+        clients = newClients;
+        console.log(clients);
+    });
+
+
+
 });
+
+
