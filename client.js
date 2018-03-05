@@ -2,51 +2,71 @@ function Client(name,color){
     this.name = name;
     this.color = color;
 }
+let oldscrollTop; 
+function scroll(){
+    let messages = document.getElementById("messages");
+
+    messages.scrollTop = messages.scrollHeight;
+    oldscrollTop = messages.scrollHeight;
+}
 $(function () {
     var socket = io();
     let client;
-
     let clients = [];
 
     $('form').submit(function(){
         let message = $('#message').val().trim();
 
-        if (message.substr(0,10) === "/nickcolor"){
-
-            socket.emit("update client color",{name: client.name, color: "#"+ message.split(" ")[1] });
+        if (message.substr(0,10) === "/nickcolor"){            
+            socket.emit("update client",[{name: client.name, color: "#"+ message.split(" ")[1] }]);
         
         }else if (message.substr(0,5) === "/nick"){
-            socket.emit("update client name",[client,{name: message.split(" ")[1], color : client.color }]);
+            socket.emit("update client",[client,{name: message.split(" ")[1], color : client.color, id:client.id}]);
+           
         
         }else if(message != ""){
             socket.emit('chat message',{ name : client.name,
-                                        message : message});
+                                        message : message,
+                                        color : client.color});
         }
         $('#message').val('');
         return false;
     });
 
     socket.on('chat message', function(message){
-        $('#messages').append($('<li client='+message.name+'>').text(message.message));
+        //Adding Messages
+        let htmlMessage = $('<li>').append($("<p>").text(message.name + ": " + message.message),$("<span class=time>").text(message.time)).css("color",message.color);
+        if(message.name == client.name){
+            htmlMessage.css("font-weight","bold");
+        }
 
-        $("#messages li[client=" +message.name+"]").css("color",message.color);
+        $('#messages').append(htmlMessage);
+        scroll();
     });
 
+    //Load previous messages
     socket.on("history messages",function(messages){
         for (let message of messages){
-            $('#messages').append($('<li client='+message.name+'>').text(message.message));
-            $("#messages li[client=" +message.name+"]").css("color",message.color);
+            let htmlMessage = $('<li>').append($("<p>").text(message.name + ": " + message.message),$("<span class=time>").text(message.time)).css("color",message.color);
+            $('#messages').append(htmlMessage);
         };
+        scroll();
     })
 
-
+    //Update client name.
     socket.on("update client",function(newClient){
         client = newClient;
+        $("#user li").text("Hello User: "+client.name);
         console.log(client);
     });
 
+    //When someone new joins or leaves
     socket.on("update clients", function(newClients){
         clients = newClients;
+        clients = clients.filter(function(otherClient){ return otherClient.name != client.name});
+        //$('#users').html("");
+        $('#users').html("<li>Users online:</h2>");
+        clients.forEach(function(client){$('#users').append("<li class=online>"+client.name+"</li>")});
         console.log(clients);
     });
 

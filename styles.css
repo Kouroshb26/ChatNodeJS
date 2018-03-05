@@ -1,10 +1,9 @@
 
 body{
- margin: 0;
- padding: 0;   
+    margin: 0;
+    padding: 0;  
+    font-size: 1.5rem; 
 }
-
-
 
 
 form { 
@@ -33,15 +32,71 @@ form button {
 
 #messages { 
     list-style-type: none; 
-    margin:0;
+    margin: 0;
     padding: 0;
-    margin-bottom: 50px;
-    }
+    position:absolute;
+    bottom:70px;
+    top: 60px;
+    width: 100%;
+    overflow: auto;
+}
+
 #messages li { 
-    padding: 5px 10px;
-    margin:0;
+    border: 2px solid #dedede;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 1rem;    
+}
+
+#messages li p { 
+    float: left;
 }
 
 #messages li:nth-child(odd) {
-    background: #eee;
+    border-color: #ccc;
+    background-color: #ddd;
 }
+#messages li::after{ 
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.time {
+    float: right;
+}
+
+
+
+#header{
+    background-color: #202020;
+    height: 60px;
+    padding: 0px 5%;
+    margin: 0px;
+}
+
+.menu{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    float:right;
+}
+
+
+#user{
+    float: left;
+}
+
+.menu li{
+    display: inline-block;
+    padding: 15px 20px;
+    color: white;
+
+}
+
+.menu li.online{
+    color: red;
+}
+
