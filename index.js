@@ -73,13 +73,16 @@ io.on('connection', function(socket){
       let newClient;
       //This is a change name branch
       if(change.length == 2){
+          console.log(change);
           let oldClient = change[0];
           newClient = change[1];
         
-        if( clients.find(function(client){ return client.name == newClient.name}) === undefined){
+        if( clients.find(function(client){ return client.name == newClient.name}) == undefined){
           let tempClient = clients.find(function(client){ return client.name == oldClient.name });
           
           tempClient.name = newClient.name;
+        }else{
+          newClient = oldClient;
         }
       }else{
         newClient = change[0]

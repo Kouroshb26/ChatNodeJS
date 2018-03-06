@@ -51,13 +51,24 @@ $(function () {
             $('#messages').append(htmlMessage);
         };
         scroll();
-    })
+    });
 
     //Update client name.
     socket.on("update client",function(newClient){
-        client = newClient;
+        var name = document.cookie.split(';').find(function(key){return key.substring(0,5) == "name="});
+        
+        if(client == null && name  != undefined){
+            client = newClient;
+            name = name.substring(5,name.length);
+            socket.emit("update client",[client,{name:name, color : client.color, id:client.id}]);
+        }else{
+            client = newClient;
+            document.cookie = "name="+client.name+";";
+        }
+
+        console.log(client.name);
         $("#user li").text("Hello User: "+client.name);
-        console.log(client);
+        //console.log(client);
     });
 
     //When someone new joins or leaves
@@ -67,7 +78,7 @@ $(function () {
         //$('#users').html("");
         $('#users').html("<li>Users online:</h2>");
         clients.forEach(function(client){$('#users').append("<li class=online>"+client.name+"</li>")});
-        console.log(clients);
+        //console.log(clients);
     });
 
 
