@@ -31,6 +31,8 @@ form button {
 }
 
 #messages { 
+    display: flex;
+    flex-direction: column-reverse;
     list-style-type: none; 
     margin: 0;
     padding: 0;
@@ -58,17 +60,10 @@ form button {
     border-color: #ccc;
     background-color: #ddd;
 }
-#messages li::after{ 
-    content: "";
-    clear: both;
-    display: table;
-}
 
 .time {
     float: right;
 }
-
-
 
 #header{
     background-color: #202020;

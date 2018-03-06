@@ -40,7 +40,7 @@ $(function () {
             htmlMessage.css("font-weight","bold");
         }
 
-        $('#messages').append(htmlMessage);
+        $('#messages').prepend(htmlMessage);
         scroll();
     });
 
@@ -48,7 +48,7 @@ $(function () {
     socket.on("history messages",function(messages){
         for (let message of messages){
             let htmlMessage = $('<li>').append($("<p>").text(message.name + ": " + message.message),$("<span class=time>").text(message.time)).css("color",message.color);
-            $('#messages').append(htmlMessage);
+            $('#messages').prepend(htmlMessage);
         };
         scroll();
     });
