@@ -58,8 +58,7 @@ io.on('connection', function(socket){
       console.log('user disconnected');
 
       clients = clients.filter(function(client){return client.id != socket.id});
-      io.emit("update clients",clients);   
-      console.log(clients);   
+      io.emit("update clients",clients);  
     });
 
     socket.on('chat message', function(message){
@@ -73,7 +72,6 @@ io.on('connection', function(socket){
       let newClient;
       //This is a change name branch
       if(change.length == 2){
-          console.log(change);
           let oldClient = change[0];
           newClient = change[1];
         

@@ -32,6 +32,7 @@ form button {
 
 #messages { 
     display: flex;
+    flex-grow: 4;
     flex-direction: column-reverse;
     list-style-type: none; 
     margin: 0;
@@ -39,7 +40,7 @@ form button {
     position:absolute;
     bottom:70px;
     top: 60px;
-    width: 100%;
+    width: 75%;
     overflow: auto;
 }
 
@@ -76,22 +77,34 @@ form button {
     list-style: none;
     margin: 0;
     padding: 0;
-    float:right;
+    float:left;
 }
 
 
-#user{
-    float: left;
+#users{
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    margin: 0;
+    position: absolute;
+    right: 0;
+    top: 60px;
+    bottom: 70px;
+    padding: 0;
+    list-style: none;
+    float: right;
+    background-color: #202020;
+    overflow: auto;
 }
 
-.menu li{
+.menu li, #users li{
     display: inline-block;
     padding: 15px 20px;
     color: white;
 
 }
 
-.menu li.online{
+#users li.online{
     color: red;
 }
 

@@ -4,6 +4,7 @@
     "description": "This is for SENG 513 assignment 3",
     "dependencies": {
         "express": "^4.15.2",
+        "nodemon": "^1.17.1",
         "socket.io": "^2.0.4"
     }
 }

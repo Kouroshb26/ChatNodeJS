@@ -16,8 +16,11 @@ $(function () {
 
     $('form').submit(function(){
         let message = $('#message').val().trim();
+        
 
-        if (message.substr(0,10) === "/nickcolor"){            
+        if(message.indexOf("<") >=0  || message.indexOf(">") >=0){
+            $('#message').val('');
+        }else if (message.substr(0,10) === "/nickcolor"){            
             socket.emit("update client",[{name: client.name, color: "#"+ message.split(" ")[1] }]);
         
         }else if (message.substr(0,5) === "/nick"){
@@ -68,7 +71,7 @@ $(function () {
 
         console.log(client.name);
         $("#user li").text("Hello User: "+client.name);
-        //console.log(client);
+
     });
 
     //When someone new joins or leaves
@@ -78,7 +81,7 @@ $(function () {
         //$('#users').html("");
         $('#users').html("<li>Users online:</h2>");
         clients.forEach(function(client){$('#users').append("<li class=online>"+client.name+"</li>")});
-        //console.log(clients);
+
     });
 
 
